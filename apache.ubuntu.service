@@ -1,0 +1,11 @@
+[Unit]
+Description=Cycle Apache2 every 6 hours
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/ashah/apache_cycle.py
+Restart=always
+#User=ashah
+
+[Install]
+WantedBy=multi-user.target
