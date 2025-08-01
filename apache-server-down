@@ -1,0 +1,28 @@
+import time
+import subprocess
+
+# Duration in seconds (6 hours)
+ACTIVE_DURATION = 2 * 60 * 60
+INACTIVE_DURATION = 22 * 60 * 60
+
+def run_command(command):
+    try:
+        subprocess.run(command, shell=True, check=True)
+        print(f"Executed: {command}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing {command}: {e}")
+
+def main():
+    while True:
+        # Start Apache2
+        run_command("sudo systemctl start apache2")
+        print("Apache2 started. Sleeping for 2 hours...")
+        time.sleep(ACTIVE_DURATION)
+
+        # Stop Apache2
+        run_command("sudo systemctl stop apache2")
+        print("Apache2 stopped. Sleeping for 20 hours...")
+        time.sleep(INACTIVE_DURATION)
+
+if __name__ == "__main__":
+    main()
